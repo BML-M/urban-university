@@ -9,7 +9,7 @@ class Car:
 
 class Nissan(Car):
     def __init__(self):
-        super().__init__('Nissan')
+        self.brand = 'Nissan'
         self.price = 1500000  # Устанавливаем новую цену для автомобилей Nissan
 
     def horse_powers(self):
@@ -18,7 +18,7 @@ class Nissan(Car):
 
 class Kia(Car):
     def __init__(self):
-        super().__init__('Kia')
+        self.brand = 'Kia'
         self.price = 1200000  # Устанавливаем новую цену для автомобилей Kia
 
     def horse_powers(self):
