@@ -10,3 +10,9 @@ odd_squared_numbers = filter(lambda x: x % 2 != 0, squared_numbers)
 result = list(odd_squared_numbers)
 
 print(result)
+
+for num in result:
+    if result.index(num) % 2 == 0:
+        print("\033[91m" + str(num) + "\033[0m", end=" ")  # Красный цвет
+    else:
+        print("\033[94m" + str(num) + "\033[0m", end=" ")  # Синий цвет
