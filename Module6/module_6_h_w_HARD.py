@@ -66,17 +66,6 @@ class Cube(Figure):
 
     def get_sides(self):
         return self._Figure__sides
-# class Cube(Figure):
-#     sides_count = 12
-#
-#     def __init__(self, color, side_length):
-#         sides = [side_length] * self.sides_count
-#         super().__init__(color, *sides)
-#
-#     def get_volume(self):
-#         return self.__sides[0] ** 3
-
-
 
 
 circle1 = Circle((200, 200, 100), 10)
