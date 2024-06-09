@@ -6,7 +6,8 @@ class Car:
         return 200
 
 class Vehicle:
-    pass
+    def __init__(self):
+        self.vehicle_type = "none"
 
 class Nissan(Car, Vehicle):
     def __init__(self):
