@@ -1,7 +1,7 @@
 import os
 import time
 
-directory = '.'  # Путь к каталогу
+directory = r'D:\urban-university\urban-university\Module7'  # Путь к каталогу с использованием сырых строк (raw string)
 
 for root, dirs, files in os.walk(directory):
     for file in files:
