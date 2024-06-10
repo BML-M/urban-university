@@ -1,38 +1,34 @@
-class InvalidDataException(Exception):
+class CustomException1(Exception):  # Создаем собственное исключение CustomException1
     pass
 
-
-class ProcessingException(Exception):
+class CustomException2(Exception):  # Создаем собственное исключение CustomException2
     pass
 
-
-def process_data(data):
-    try:
-        if not isinstance(data, int):
-            raise InvalidDataException("Invalid data type. Integer expected.")
-        elif data < 0:
-            raise ProcessingException("Negative number not allowed.")
-    except InvalidDataException as e:
-        print(f"InvalidDataException: {e}")
-    except ProcessingException as e:
-        print(f"ProcessingException: {e}")
+def generate_exception(argument):  # Функция, генерирующая различные исключения
+    if argument == 1:
+        raise CustomException1("Custom Exception 1 was raised")  # Генерируем исключение CustomException1
+    elif argument == 2:
+        raise CustomException2("Custom Exception 2 was raised")  # Генерируем исключение CustomException2
     else:
-        print("Data processing successful.")
-    finally:
-        print("Data processing finished.")
+        raise ValueError("Invalid argument")  # Генерируем обычное исключение ValueError
 
-
-def main():
+def main_function(argument):  # Основная функция
     try:
-        data = input("Enter a number: ")
-        process_data(int(data))
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-    except InvalidDataException as e:
-        print(f"InvalidDataException: {e}")
-    except ProcessingException as e:
-        print(f"ProcessingException: {e}")
+        generate_exception(argument)  # Вызываем функцию generate_exception
+    except CustomException1 as e:  # Обрабатываем исключение CustomException1
+        print("Обработка собственного исключения 1:", e)
+        raise  # Передаем исключение дальше
+    except CustomException2 as e:  # Обрабатываем исключение CustomException2
+        print("Обработка собственного исключения 2:", e)
+        raise  # Передаем исключение дальше
+    except Exception as e:  # Обрабатываем остальные исключения
+        print("Обработка других исключений:", e)
 
-
-if __name__ == "__main__":
-    main()
+try:
+    main_function(1)  # Вызываем основную функцию с аргументом 1
+except CustomException1 as e:  # Обрабатываем исключение CustomException1 в основной функции
+    print("Обработка собственного исключения 1 в основной функции:", e)
+except CustomException2 as e:  # Обрабатываем исключение CustomException2 в основной функции
+    print("Обработка собственного исключения 2 в основной функции:", e)
+except Exception as e:  # Обрабатываем остальные исключения в основной функции
+    print("Обработка других исключений в основной функции:", e)
