@@ -50,7 +50,7 @@ class Archer(Knight):  # Класс Лучник, наследуется от к
 
 knight1 = Knight("Sir Lancelot", 10, "GREEN")  # Рыцарь с низким уровнем умения
 knight2 = Knight("Sir Galahad", 20, "RED")  # Рыцарь с высоким уровнем умения
-archer1 = Archer("Robin Hood", 15, "BLUE")  # Лучник с средним уровнем умения
+archer1 = Archer("Robin Hood", 15, "BLUE")  # Лучник со средним уровнем умения
 archer2 = Archer("Legolas", 25, "MAGENTA")  # Лучник с высоким уровнем умения
 
 knight1.start()
