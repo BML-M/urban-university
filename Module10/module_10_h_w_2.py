@@ -6,7 +6,7 @@ init(autoreset=True)
 
 
 class Knight(threading.Thread):
-    def __init__(self, name, skill, color):  # Corrected the init method
+    def __init__(self, name, skill, color):  # Откорректирован метод init
         super().__init__()
         self.name = name
         self.skill = skill
@@ -28,8 +28,8 @@ class Knight(threading.Thread):
         print(getattr(Back, self.color) + f"{self.name} одержал победу спустя {days} дней!" + Style.RESET_ALL)
 
 
-class Archer(Knight):  # Archer class inheriting from Knight class
-    def __init__(self, name, skill, color):  # Archer class with init method
+class Archer(Knight):  # Класс Лучник, наследуется от класса Рыцарь
+    def __init__(self, name, skill, color):  # Метод init для класса Лучник
         super().__init__(name, skill, color)
 
     def run(self):
@@ -48,10 +48,10 @@ class Archer(Knight):  # Archer class inheriting from Knight class
         print(getattr(Back, self.color) + f"{self.name} одержал победу спустя {days} дней!" + Style.RESET_ALL)
 
 
-knight1 = Knight("Sir Lancelot", 10, "GREEN")  # Низкий уровень умения
-knight2 = Knight("Sir Galahad", 20, "RED")  # Высокий уровень умения
-archer1 = Archer("Robin Hood", 15, "BLUE")  # Средний уровень умения
-archer2 = Archer("Legolas", 25, "MAGENTA")  # Высокий уровень умения
+knight1 = Knight("Sir Lancelot", 10, "GREEN")  # Рыцарь с низким уровнем умения
+knight2 = Knight("Sir Galahad", 20, "RED")  # Рыцарь с высоким уровнем умения
+archer1 = Archer("Robin Hood", 15, "BLUE")  # Лучник с средним уровнем умения
+archer2 = Archer("Legolas", 25, "MAGENTA")  # Лучник с высоким уровнем умения
 
 knight1.start()
 knight2.start()
