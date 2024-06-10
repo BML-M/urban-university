@@ -14,16 +14,25 @@ class ProcessingException(Exception):
 def process_data():
     while True:
         try:
-            int(input("Введите целое число: "))
+            data = int(input("Введите целое число: "))
+            # Здесь можно добавить код для обработки данных
+            if data < 0:
+                raise InvalidDataException("Число не может быть отрицательным")
             print("Данные успешно обработаны.")
-            break
+            break  # Выход из цикла, если данные успешно обработаны
         except ValueError:
             print("Ошибка: Введенные данные не являются целым числом")
         except InvalidDataException as e:
             print("Ошибка: Неверные данные -", e)
+            raise e  # Передаем исключение в вызывающую функцию
         except ProcessingException as e:
             print("Ошибка при обработке данных -", e)
-
+            raise e  # Передаем исключение в вызывающую функцию
 
 # Вызовем функцию для обработки данных
-process_data()
+try:
+    process_data()
+except InvalidDataException as e:
+    print("Обработанное исключение в вызывающей функции -", e)
+except ProcessingException as e:
+    print("Обработанное исключение в вызывающей функции -", e)
