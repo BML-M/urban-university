@@ -20,13 +20,16 @@ class BankAccount:
             else:
                 print("Недостаточно средств для снятия")
 
-def deposit_task(account, amount):
-    for _ in range(5):
-        account.deposit(amount)
 
-def withdraw_task(account, amount):
+def deposit_task(account_x, amount):
     for _ in range(5):
-        account.withdraw(amount)
+        account_x.deposit(amount)
+
+
+def withdraw_task(account_x, amount):
+    for _ in range(5):
+        account_x.withdraw(amount)
+
 
 account = BankAccount()
 
