@@ -1,8 +1,10 @@
 class CustomException1(Exception):  # Создаем собственное исключение CustomException1
     pass
 
+
 class CustomException2(Exception):  # Создаем собственное исключение CustomException2
     pass
+
 
 def generate_exception(argument):  # Функция, генерирующая различные исключения
     if argument == 1:
@@ -12,17 +14,19 @@ def generate_exception(argument):  # Функция, генерирующая р
     else:
         raise ValueError("Invalid argument")  # Генерируем обычное исключение ValueError
 
+
 def main_function(argument):  # Основная функция
     try:
         generate_exception(argument)  # Вызываем функцию generate_exception
-    except CustomException1 as e:  # Обрабатываем исключение CustomException1
-        print("Обработка собственного исключения 1:", e)
+    except CustomException1 as e_1:  # Обрабатываем исключение CustomException1
+        print("Обработка собственного исключения 1:", e_1)
         raise  # Передаем исключение дальше
-    except CustomException2 as e:  # Обрабатываем исключение CustomException2
-        print("Обработка собственного исключения 2:", e)
+    except CustomException2 as e_1:  # Обрабатываем исключение CustomException2
+        print("Обработка собственного исключения 2:", e_1)
         raise  # Передаем исключение дальше
-    except Exception as e:  # Обрабатываем остальные исключения
-        print("Обработка других исключений:", e)
+    except Exception as e_1:  # Обрабатываем остальные исключения
+        print("Обработка других исключений:", e_1)
+
 
 try:
     main_function(1)  # Вызываем основную функцию с аргументом 1
