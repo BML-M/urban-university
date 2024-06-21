@@ -1,59 +1,69 @@
 import threading
 import time
-from queue import Queue
+import queue
 
 class Table:
     def __init__(self, number):
         self.number = number
         self.is_busy = False
 
-class Customer(threading.Thread):
-    def __init__(self, number, table):
-        super().__init__()
-        self.number = number
-        self.table = table
-
-    def run(self):
-        print(f"Посетитель номер {self.number} сел за стол {self.table.number}.")
-        time.sleep(5)  # время на прием пищи
-        self.table.is_busy = False
-        print(f"Посетитель номер {self.number} покушал и ушёл.")
-
 class Cafe:
     def __init__(self, tables):
-        self.queue = Queue()
-        self.tables = [Table(number) for number in range(1, tables)]
-        self.visitors = []
+        self.queue = queue.Queue()
+        self.tables = tables
+        self.visitors_count = 1
+        self.queue_count = 1
 
     def customer_arrival(self):
-        if not self.queue.empty():
-            next_customer = self.queue.get()
-            for table in self.tables:
-                if not table.is_busy:
-                    table.is_busy = True
-                    next_customer.table = table
-                    next_customer.start()
-                    return
-        else:
-            for table in self.tables:
-                if not table.is_busy:
-                    customer = Customer(table.number, table)
-                    table.is_busy = True
+        customer_count = 1
+        while self.visitors_count <= 20:
+            time.sleep(1)
+            print(f"Посетитель номер {customer_count} прибыл.")
+            if self.visitors_count < len(self.tables):
+                customer = threading.Thread(target=self.serve_customer, args=(customer_count,))
+                customer.start()
+            else:
+                self.queue.put(customer_count)
+                self.queue_count += 1
+                print(f"Посетитель номер {customer_count} ожидает свободный стол. Людей в очереди: {self.queue_count}")
+            customer_count += 1
+            self.visitors_count += 1
+
+        # После достижения 20 посетителей останавливаем прием новых посетителей
+        print("Достигнуто максимальное количество посетителей. Прием новых посетителей завершен.")
+
+    def serve_customer(self, customer_number):
+        for table in self.tables:
+            if not table.is_busy:
+                table.is_busy = True
+                print(f"Посетитель номер {customer_number} сел за стол {table.number}.")
+                time.sleep(5)
+                print(f"Посетитель номер {customer_number} покушал и ушёл.")
+                table.is_busy = False
+                self.visitors_count -= 1
+                if self.queue_count > 0:
+                    next_customer = self.queue.get()
+                    self.queue_count -= 1
+                    customer = threading.Thread(target=self.serve_customer, args=(next_customer,))
                     customer.start()
-                    return
-            print("Все столы заняты. Посетитель пошел в очередь.")
-            new_customer = Customer(len(self.visitors) + 1, None)
-            self.visitors.append(new_customer)
-            self.queue.put(new_customer)
-            print(f"Текущая очередь: {[visitor.number for visitor in self.visitors]}")
+                break
+        else:
+            self.queue.put(customer_number)
+            self.queue_count += 1
+            print(f"Посетитель номер {customer_number} ожидает свободный стол. Людей в очереди: {self.queue_count}")
 
-    def serve_customer(self, customer):
-        if not self.queue.empty():
-            next_customer = self.queue.get()
-            next_customer.table = customer.table
-            next_customer.start()
+# Создаем столики в кафе
+table1 = Table(1)
+table2 = Table(2)
+table3 = Table(3)
+tables = [table1, table2, table3]
 
-cafe = Cafe(3)
-for i in range(1, 21):
-    cafe.customer_arrival()
-    time.sleep(2)
+# Инициализируем кафе
+cafe = Cafe(tables)
+
+# Запускаем поток для прибытия посетителей
+customer_arrival_thread = threading.Thread(target=cafe.customer_arrival)
+customer_arrival_thread.start()
+
+# Ожидаем завершения работы прибытия посетителей
+customer_arrival_thread.join(20)

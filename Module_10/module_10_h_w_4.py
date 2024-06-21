@@ -23,6 +23,7 @@ class Cafe:
     def __init__(self, tables):
         self.queue = Queue()
         self.tables = [Table(number) for number in range(1, tables)]
+        self.visitors = []
 
     def customer_arrival(self):
         if not self.queue.empty():
@@ -41,7 +42,10 @@ class Cafe:
                     customer.start()
                     return
             print("Все столы заняты. Посетитель пошел в очередь.")
-            self.queue.put(Customer(self.queue.qsize() + 1, None))
+            new_customer = Customer(len(self.visitors) + 1, None)
+            self.visitors.append(new_customer)
+            self.queue.put(new_customer)
+            print(f"Текущая очередь: {[visitor.number for visitor in self.visitors]}")
 
     def serve_customer(self, customer):
         if not self.queue.empty():
