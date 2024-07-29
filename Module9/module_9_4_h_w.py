@@ -1,8 +1,8 @@
 from random import choice
 
 # Lambda-функция
-first = 'Мама мыла раму'
-second = 'Рамена мало было'
+first = 'Папа чинил машину'
+second = 'Машину чинил Папа'
 
 # Создаем список совпадений по позициям
 compare = list(map(lambda x, y: x == y, first, second))
