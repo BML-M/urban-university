@@ -1,13 +1,17 @@
 def custom_write(file_name, strings):
     strings_positions = {}
 
-    with open(file_name, 'w', encoding='utf-8') as file:
-        for index, string in enumerate(strings, start=1):
-            position = file.tell()
-            file.write(string + '\n')
-            strings_positions[(index, position)] = string
+    # Открываем файл в режиме записи с указанием кодировки utf-8
+    file = open(file_name, 'w', encoding='utf-8')  # Открываем файл
 
-    return strings_positions
+    for index, string in enumerate(strings, start=1):
+        position = file.tell()  # Получаем текущую позицию в файле
+        file.write(string + '\n')  # Записываем строку в файл
+        strings_positions[(index, position)] = string  # Сохраняем информацию о строке
+
+    file.close()  # Закрываем файл
+
+    return strings_positions  # Возвращаем словарь с позициями строк
 
 
 # Пример использования
